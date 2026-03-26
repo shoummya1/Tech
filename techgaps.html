@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>TechGaps BD — Unsolved Problems. Open Opportunities.</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #F7F5F0;
+    --ink: #141410;
+    --muted: #7A7870;
+    --accent: #D64F2B;
+    --accent-soft: #F5E9E5;
+    --border: #DDDAD3;
+    --card: #FFFFFF;
+    --tag-bg: #EDEBE6;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    padding: 0 5vw;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 60px;
+  }
+  .logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.1rem;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .logo span { color: var(--accent); }
+  nav a.nav-link {
+    font-size: 0.875rem;
+    color: var(--muted);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  nav a.nav-link:hover { color: var(--ink); }
+  .nav-links { display: flex; gap: 2rem; align-items: center; }
+  .cta-btn {
+    background: var(--ink);
+    color: var(--bg) !important;
+    padding: 0.45rem 1.1rem;
+    border-radius: 4px;
+    font-size: 0.8rem !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.02em;
+    transition: background 0.2s !important;
+  }
+  .cta-btn:hover { background: var(--accent) !important; }
+
+  /* HERO */
+  .hero {
+    padding: 7rem 5vw 5rem;
+    max-width: 900px;
+  }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.35rem 0.85rem;
+    border-radius: 2px;
+    margin-bottom: 2rem;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.8rem, 6vw, 5rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 em {
+    font-style: normal;
+    color: var(--accent);
+    position: relative;
+  }
+  .hero h1 em::after {
+    content: '';
+    position: absolute;
+    bottom: 4px; left: 0; right: 0;
+    height: 3px;
+    background: var(--accent);
+    opacity: 0.3;
+    border-radius: 2px;
+  }
+  .hero p {
+    font-size: 1.1rem;
+    color: var(--muted);
+    max-width: 540px;
+    font-weight: 300;
+    margin-bottom: 2.5rem;
+  }
+  .hero-stats {
+    display: flex; gap: 3rem; padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-top: 0.3rem;
+    font-weight: 400;
+  }
+
+  /* DIVIDER */
+  .section-label {
+    padding: 0 5vw;
+    margin-bottom: 2rem;
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .section-label h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* FILTERS */
+  .filters {
+    padding: 0 5vw 2rem;
+    display: flex; gap: 0.6rem; flex-wrap: wrap;
+  }
+  .filter-btn {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    padding: 0.4rem 1rem;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .filter-btn:hover, .filter-btn.active {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--bg);
+  }
+
+  /* PROBLEM GRID */
+  .problems {
+    padding: 0 5vw 5rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5px;
+    background: var(--border);
+  }
+
+  .problem-card {
+    background: var(--card);
+    padding: 2rem;
+    cursor: pointer;
+    transition: background 0.15s;
+    position: relative;
+    opacity: 0;
+    transform: translateY(16px);
+    animation: fadeUp 0.4s ease forwards;
+  }
+  .problem-card:hover { background: #FDFCF9; }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .problem-card:nth-child(1) { animation-delay: 0.05s; }
+  .problem-card:nth-child(2) { animation-delay: 0.1s; }
+  .problem-card:nth-child(3) { animation-delay: 0.15s; }
+  .problem-card:nth-child(4) { animation-delay: 0.2s; }
+  .problem-card:nth-child(5) { animation-delay: 0.25s; }
+  .problem-card:nth-child(6) { animation-delay: 0.3s; }
+  .problem-card:nth-child(7) { animation-delay: 0.35s; }
+  .problem-card:nth-child(8) { animation-delay: 0.4s; }
+  .problem-card:nth-child(9) { animation-delay: 0.45s; }
+
+  .card-top {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+  .problem-number {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--border);
+    letter-spacing: 0.05em;
+  }
+  .urgency {
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 0.2rem 0.6rem;
+    border-radius: 100px;
+    letter-spacing: 0.04em;
+  }
+  .urgency.high { background: #FEE9E4; color: #C0391A; }
+  .urgency.medium { background: #FEF5E4; color: #9A6A00; }
+  .urgency.low { background: #E8F5E9; color: #2E7D32; }
+
+  .problem-card h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.3;
+    margin-bottom: 0.75rem;
+    color: var(--ink);
+  }
+  .problem-card p {
+    font-size: 0.875rem;
+    color: var(--muted);
+    line-height: 1.65;
+    margin-bottom: 1.25rem;
+    font-weight: 300;
+  }
+  .tags {
+    display: flex; flex-wrap: wrap; gap: 0.4rem;
+    margin-bottom: 1.25rem;
+  }
+  .tag {
+    background: var(--tag-bg);
+    color: var(--muted);
+    font-size: 0.7rem;
+    font-weight: 500;
+    padding: 0.25rem 0.65rem;
+    border-radius: 2px;
+    letter-spacing: 0.02em;
+  }
+  .card-footer {
+    display: flex; align-items: center; justify-content: space-between;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--border);
+  }
+  .market-size {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .market-label {
+    font-size: 0.7rem;
+    color: var(--muted);
+    font-weight: 400;
+  }
+  .arrow-link {
+    width: 32px; height: 32px;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--muted);
+    font-size: 0.9rem;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+  .problem-card:hover .arrow-link {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: white;
+  }
+
+  /* CONTACT */
+  #contact {
+    padding: 6rem 5vw;
+    border-top: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5vw;
+    align-items: start;
+  }
+  .contact-left h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+  }
+  .contact-left p {
+    color: var(--muted);
+    font-size: 0.95rem;
+    font-weight: 300;
+    max-width: 360px;
+    line-height: 1.7;
+  }
+  .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+  .form-group label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 0.75rem 1rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    color: var(--ink);
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+    resize: none;
+  }
+  .form-group input:focus,
+  .form-group textarea:focus,
+  .form-group select:focus {
+    border-color: var(--ink);
+  }
+  .form-group textarea { height: 120px; }
+  .submit-btn {
+    background: var(--ink);
+    color: var(--bg);
+    border: none;
+    padding: 0.9rem 2rem;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s;
+    align-self: flex-start;
+  }
+  .submit-btn:hover { background: var(--accent); }
+
+  .success-msg {
+    display: none;
+    background: #E8F5E9;
+    color: #2E7D32;
+    padding: 1rem 1.25rem;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem 5vw;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  footer p {
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+  .footer-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1rem;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .footer-logo span { color: var(--accent); }
+
+  /* RESPONSIVE */
+  @media (max-width: 700px) {
+    #contact { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .hero-stats { gap: 2rem; }
+    .problems { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">Tech<span>Gaps</span> BD</a>
+  <div class="nav-links">
+    <a href="#problems" class="nav-link">Problems</a>
+    <a href="#contact" class="nav-link">Submit a Gap</a>
+    <a href="#contact" class="nav-link cta-btn">Get Involved</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">Bangladesh · Tech Opportunity Map</div>
+  <h1>Unsolved problems.<br><em>Open opportunities.</em></h1>
+  <p>We map the biggest technology gaps in Bangladesh — so founders, developers, and investors can find the right market to build in.</p>
+  <div class="hero-stats">
+    <div>
+      <div class="stat-num">24</div>
+      <div class="stat-label">Documented gaps</div>
+    </div>
+    <div>
+      <div class="stat-num">9</div>
+      <div class="stat-label">Sectors covered</div>
+    </div>
+    <div>
+      <div class="stat-num">$2.4B+</div>
+      <div class="stat-label">Combined market potential</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEMS SECTION -->
+<div id="problems">
+  <div class="section-label"><h2>Market Gaps</h2></div>
+  <div class="filters">
+    <button class="filter-btn active" onclick="filterCards('all', this)">All</button>
+    <button class="filter-btn" onclick="filterCards('fintech', this)">Fintech</button>
+    <button class="filter-btn" onclick="filterCards('health', this)">Health</button>
+    <button class="filter-btn" onclick="filterCards('agri', this)">Agriculture</button>
+    <button class="filter-btn" onclick="filterCards('logistics', this)">Logistics</button>
+    <button class="filter-btn" onclick="filterCards('education', this)">Education</button>
+    <button class="filter-btn" onclick="filterCards('govt', this)">Gov & Civic</button>
+  </div>
+
+  <div class="problems" id="problem-grid">
+
+    <div class="problem-card" data-category="fintech">
+      <div class="card-top">
+        <span class="problem-number">#001</span>
+        <span class="urgency high">High</span>
+      </div>
+      <h3>No credit scoring for the unbanked majority</h3>
+      <p>Over 60% of Bangladeshis lack formal credit history, making them invisible to lenders. Alternative data — mobile usage, utility payments, trade records — remains largely untapped.</p>
+      <div class="tags">
+        <span class="tag">Fintech</span><span class="tag">Financial Inclusion</span><span class="tag">AI/ML</span>
+      </div>
+      <div class="card-footer">
+        <div>
+          <div class="market-size">~$850M</div>
+          <div class="market-label">Addressable market</div>
+        </div>
+        <a href="#contact" class="arrow-link">→</a>
+      </div>
+    </div>
+
+    <div class="problem-card" data-category="health">
+      <div class="card-top">
+        <span class="problem-number">#002</span>
+        <span class="urgency high">High</span>
+      </div>
+      <h3>Fragmented rural healthcare access</h3>
+      <p>Rural patients travel hours for basic consultations. Telemedicine exists but adoption is low due to poor UX, low trust, and payment friction for rural populations.</p>
+      <div class="tags">
+        <span class="tag">Health</span><span class="tag">Telemedicine</span><span class="tag">Rural</span>
+      </div>
+      <div class="card-footer">
+        <div>
+          <div class="market-size">~$400M</div>
+          <div class="market-label">Addressable market</div>
+        </div>
+        <a href="#contact" class="arrow-link">→</a>
+      </div>
+    </div>
+
+    <div class="problem-card" data-category="agri">
+      <div class="card-top">
+        <span class="problem-number">#003</span>
+        <span class="urgency high">High</span>
+      </div>
+      <h3>Farmers have no real-time market price access</h3>
+      <p>Smallholder farmers sell at huge discounts because they lack visibility into market prices. Middlemen capture most of the value chain with little transparency.</p>
+      <div class="tags">
+        <span class="tag">Agriculture</span><span class="tag">Data</span><span class="tag">Supply Chain</span>
+      </div>
+      <div class="card-footer">
+        <div>
+          <div class="market-size">~$300M</div>
+          <div class="market-label">Addressable market</div>
+        </div>
+        <a href="#contact" class="arrow-link">→</a>
+      </div>
+    </div>
+
+    <div class="problem-card" data-category="logistics">
+      <div class="card-top">
+        <span class="problem-number">#004</span>
+        <span class="urgency medium">Medium</span>
+      </div>
+      <h3>Last-mile delivery outside Dhaka is broken</h3>
+      <p>E-commerce penetration outside Dhaka is stifled by unreliable delivery. No scalable, affordable last-mile network exists for Tier 2 and Tier 3 cities.</p>
+      <div class="tags">
+        <span class="tag">Logistics</span><span class="tag">E-commerce</span><span class="tag">Infrastructure</span>
+      </div>
+      <div class="card-footer">
+        <div>
+          <div class="market-size">~$220M</div>
+          <div class="market-label">Addressable market</div>
+        </div>
+        <a href="#contact" class="arrow-link">→</a>
+      </div>
+    </div>
+
+    <div class="problem-card" data-category="education">
+      <div class="card-top">
+        <span class="problem-number">#005</span>
+        <span class="urgency medium">Medium</span>
+      </div>
+      <h3>No scalable Bangla-first upskilling platform</h3>
+      <p>Most online learning is English-only, alienating tens of millions of Bangla-speaking learners. Vocational and tech upskilling remains largely offline and unscalable.</p>
+      <div class="tags">
+        <span class="tag">Education</span><span class="tag">EdTech</span><span class="tag">Language</span>
+      </div>
+      <div class="card-footer">
+        <div>
+          <div class="market-size">~$180M</div>
+          <div class="market-label">Addressable market</div>
+        </div>
+        <a href="#contact" class="arrow-link">→</a>
+      </div>
+    </div>
+
+    <div class="problem-card" data-category="govt">
+      <div class="card-top">
+        <span class="problem-number">#006</span>
+        <span class="urgency medium">Medium</span>
+      </div>
+      <h3>Public procurement is opaque and manual</h3>
+      <p>Government tendering processes are largely paper-based and inaccessible to smaller vendors. There is no unified digital marketplace connecting SMEs with public contracts.</p>
+      <div class="tags">
+        <span class="tag">Gov & Civic</span><span class="tag">Procurement</span><span class="tag">GovTech</span>
+      </div>
+      <div class="card-footer">
+        <div>
+          <div class="market-size">~$150M</div>
+          <div class="market-label">Addressable market</div>
+        </div>
+        <a href="#contact" class="arrow-link">→</a>
+      </div>
+    </div>
+
+    <div class="problem-card" data-category="fintech">
+      <div class="card-top">
+        <span class="problem-number">#007</span>
+        <span class="urgency high">High</span>
+      </div>
+      <h3>SME working capital access is near zero</h3>
+      <p>Millions of small businesses operate without access to short-term business loans or invoice financing. Traditional banks require collateral that most SMEs simply don't have.</p>
+      <div class="tags">
+        <span class="tag">Fintech</span><span class="tag">SME</span><span class="tag">Lending</span>
+      </div>
+      <div class="card-footer">
+        <div>
+          <div class="market-size">~$600M</div>
+          <div class="market-label">Addressable market</div>
+        </div>
+        <a href="#contact" class="arrow-link">→</a>
+      </div>
+    </div>
+
+    <div class="problem-card" data-category="health">
+      <div class="card-top">
+        <span class="problem-number">#008</span>
+        <span class="urgency low">Low</span>
+      </div>
+      <h3>Mental health has zero digital infrastructure</h3>
+      <p>Stigma and a shortage of licensed therapists means most people with mental health needs go unserved. A confidential, affordable digital solution could reach millions.</p>
+      <div class="tags">
+        <span class="tag">Health</span><span class="tag">Mental Health</span><span class="tag">B2C</span>
+      </div>
+      <div class="card-footer">
+        <div>
+          <div class="market-size">~$90M</div>
+          <div class="market-label">Addressable market</div>
+        </div>
+        <a href="#contact" class="arrow-link">→</a>
+      </div>
+    </div>
+
+    <div class="problem-card" data-category="agri">
+      <div class="card-top">
+        <span class="problem-number">#009</span>
+        <span class="urgency medium">Medium</span>
+      </div>
+      <h3>Cold chain logistics for perishables is primitive</h3>
+      <p>Bangladesh loses an estimated 30% of its fruits and vegetables to spoilage before reaching consumers. A tech-enabled cold chain network remains largely unbuilt.</p>
+      <div class="tags">
+        <span class="tag">Agriculture</span><span class="tag">Logistics</span><span class="tag">Infrastructure</span>
+      </div>
+      <div class="card-footer">
+        <div>
+          <div class="market-size">~$200M</div>
+          <div class="market-label">Addressable market</div>
+        </div>
+        <a href="#contact" class="arrow-link">→</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- CONTACT SECTION -->
+<section id="contact">
+  <div class="contact-left">
+    <h2>Know a gap we missed?</h2>
+    <p>We rely on founders, researchers, and practitioners to keep this list accurate and growing. Submit a problem you've seen firsthand — we'll verify and publish it.</p>
+  </div>
+  <div class="contact-form">
+    <div class="form-row">
+      <div class="form-group">
+        <label>Your Name</label>
+        <input type="text" placeholder="Rahim Uddin" id="name"/>
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" placeholder="you@example.com" id="email"/>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Sector</label>
+      <select id="sector">
+        <option value="">— Select a sector —</option>
+        <option>Fintech</option>
+        <option>Health</option>
+        <option>Agriculture</option>
+        <option>Logistics</option>
+        <option>Education</option>
+        <option>Gov & Civic</option>
+        <option>Other</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Describe the problem</label>
+      <textarea id="message" placeholder="What is the gap? Who is affected? Why hasn't it been solved yet?"></textarea>
+    </div>
+    <button class="submit-btn" onclick="handleSubmit()">Submit the Gap →</button>
+    <div class="success-msg" id="success-msg">✓ Received! We'll review your submission and follow up within 3 business days.</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="#" class="footer-logo">Tech<span>Gaps</span> BD</a>
+  <p>Built to accelerate Bangladesh's startup ecosystem.</p>
+  <p style="font-size:0.75rem; color: var(--border);">© 2026</p>
+</footer>
+
+<script>
+  function filterCards(category, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    document.querySelectorAll('.problem-card').forEach(card => {
+      const show = category === 'all' || card.dataset.category === category;
+      card.style.display = show ? 'block' : 'none';
+    });
+  }
+
+  function handleSubmit() {
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const message = document.getElementById('message').value.trim();
+
+    if (!name || !email || !message) {
+      alert('Please fill in your name, email, and a problem description.');
+      return;
+    }
+
+    document.getElementById('success-msg').style.display = 'block';
+    document.getElementById('name').value = '';
+    document.getElementById('email').value = '';
+    document.getElementById('sector').value = '';
+    document.getElementById('message').value = '';
+  }
+</script>
+
+</body>
+</html>
